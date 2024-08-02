@@ -1,0 +1,29 @@
+1)	Prepare a docker-compose for a nginx server.
+Requirements:
+•	nginx logs need to survive between nginx container restarts
+•	docker should use network bridge subnet 172.20.8.0/24
+
+Answer: docker-compose file has been created, need to run below command to up the custome network.
+        docker-compose up -d
+        check the network: docker network inspect nginx_docker_custom_bridge
+        restart the nginx container & verify the logs: docker-compose restart nginx
+                                                       docker-compose exec nginx ls /var/log/nginx
+
+
+2)	Which Kubernetes command you will use to identify the reason for a pod restart in the project "internal" under namespace "production".
+
+Answer: list pods in production namespace
+        kubectl get pods -n production
+
+        describe pod
+        kubectl describe pod <pod-name> -n production
+
+3. Application pod has the following resource quota:
+•	Memory request & limit: 1000 & 1500
+•	CPU request & limit: 1000 & 2000
+•	Xmx of 1000M
+Java-app keep restarting at random.  From Kubernetes configuration perspective, what are the possible reasons for the pod restarts?
+
+Answer: 1. it's possible that the container is experiencing CPU spikes that exceed its allocation.
+        2. it's possible that the container is experiencing memory spikes that exceed its allocation.
+        3. If the pod is consistently using more CPU than its request (1000m), it might be throttled. 
