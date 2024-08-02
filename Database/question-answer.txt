@@ -1,0 +1,22 @@
+1)	Cassandra
+Query to db cluster returns different result each time.  Users reported query result has data records that they deleted days ago.  
+Explain what the likely reason for the behavior and how to avoid it.
+Ans: Pass
+
+2)	Mongo
+Performance is bad as the hardware of replicaset_1 is not capable to handle the database sanfrancisco.  We added a new replicaset_2.  
+Please provide all steps required to shard the collection sanfrancisco.company_name based on _id.
+
+Ans: 
+1. Connect to MongoDB Shell
+2. Enable Sharding on the Database:
+    use admin
+    sh.enableSharding("sanfrancisco")
+3. Add Shards to the Cluster:
+    sh.addShard("replicaset_1/<replicaset_1_member1>")
+    sh.addShard("replicaset_2/<replicaset_2_member1>")
+4. Enable Sharding on the Collection
+    use sanfrancisco
+    sh.shardCollection("sanfrancisco.company_name", { "_id": 1 })
+5. Verify the Sharding Status
+    sh.status()
