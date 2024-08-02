@@ -1,0 +1,11 @@
+1. Please use the accompanied elasticsearch helm template to create a Kubernetes deployment of elasticsearch.  
+    Provide a screenshot & deployment yaml of the resultant deployment in Kubernetes.  
+Ans: Pass
+
+2. Metrics:
+1)	Explain how Prometheus work.
+2)	How do you create custom Prometheus alerts and alerting rules for Kubernetes monitoring? Provide an example alert rule and its configuration.
+3)	What is the Prometheus query you can use in Granfana to properly show usage trend of an application metric that is a counter?
+
+Ans: 1. Prometheus is a time-series database and monitoring system that collects and stores metrics.
+        It works by scraping metrics from instrumented applications, storing them in a time-series database, and providing powerful query capabilities.
