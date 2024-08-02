@@ -1,0 +1,16 @@
+define host {
+  use                     generic-host
+  host_name               {{ host.inventory_hostname }}
+  address                 {{ host.ansible_all_ipv4_addresses[0] }}
+  check_command           check-ping
+  active_checks_enabled   1
+  passive_checks_enabled  1
+}
+
+define service {
+  use                     generic-service
+  host_name               {{ host.inventory_hostname }}
+  service_description     ntp_process
+  check_command           check_ntp
+  check_interval          10
+}

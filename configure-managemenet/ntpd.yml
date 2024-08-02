@@ -1,0 +1,33 @@
+---
+- name: Deploy ntpd package and configure ntpd.conf
+  hosts:
+    - app-vm1.fra1.internal
+    - db-vm1.fra1.db
+    - web-vm1.fra1.web
+  become: yes
+  tasks:
+    - name: Install ntpd package
+      apt:
+        name: ntp
+        state: present
+    
+    - name: Configure ntpd.conf
+      copy:
+        dest: /etc/ntpd.conf
+        content: |
+          tinker panic 0
+          restrict default kod nomodify notrap nopeer noquery
+          restrict -6 default kod nomodify notrap nopeer noquery
+          restrict 127.0.0.1
+          restrict -6 ::1
+          server 192.168.0.252 minpoll 4 maxpoll 8
+          server 192.168.0.251 minpoll 4 maxpoll 8
+          server 192.168.0.0 # local clock
+          fudge 192.168.0.0 stratum 10
+          driftfile /var/lib/ntp/drift
+          keys /etc/ntp/keys
+    
+    - name: Restart ntpd service
+      service:
+        name: ntp
+        state: restarted

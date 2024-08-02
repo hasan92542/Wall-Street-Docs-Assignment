@@ -1,0 +1,15 @@
+1. Which ansible command can display all ansible_ configuration for a host.
+Ans: ansible <hostname> -m setup
+
+2. Please configure a cron job that runs logrotate on all machines every 10 minutes between 2h - 4h.
+Ans: */10 2-4 * * * /usr/sbin/logrotate /etc/logrotate.conf
+
+3. Please deploy ntpd package to the following 3 servers:
+Ans: ntpd.yml is configured now need to apply the below command to run the file which will deploy
+the ntpd with custom configuration.
+ansible-playbook -i hosts ntpd.yml
+
+4. We also need to deploy monitoring template onto our nagios server “monitoring.fra1.internal”,
+each of the above machines should use the following nagios templates:
+Ans: template is ready, need to run the below command:
+ansible-playbook -i hosts nagios.yml
